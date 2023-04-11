@@ -2,6 +2,7 @@ const express = require('express');
 const colors = require('colors');
 const cors = require('cors');
 require('dotenv').config();
+const path = require('path')
 
 const { graphqlHTTP } =  require('express-graphql')
 const schema = require('./schema/schema');
@@ -22,5 +23,7 @@ app.use('/graphql',graphqlHTTP({
     schema,
     graphiql : process.env.NODE_ENV === 'development'
 }))
+
+app.use(express.static(path.join(__dirname, "client/build")))
 
 app.listen(port, console.log(`Server running on port ${port}`));
