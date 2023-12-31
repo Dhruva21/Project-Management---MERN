@@ -3,10 +3,12 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { GET_PROJECT } from '../queries/projectQueries'
 import { UPDATE_PROJECT } from '../mutations/projectMutations'
+import { useNavigate } from 'react-router-dom'
 
 export default function EditProjectForm({project}) {
     const [name, setName] = useState(project.name)
     const [description, setDescription] = useState(project.description)
+    const navigate = useNavigate();
     
     const [status, setStatus] = useState('')
 
@@ -30,7 +32,8 @@ export default function EditProjectForm({project}) {
             return alert('Please fill out all fields')
         }
         updateProject(name,description,status);
-
+        // navigate back to the home page after editing
+        navigate('/');
     }
   return (
     <div className='mt-5'>
